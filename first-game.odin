@@ -3,10 +3,11 @@ package firstgame
 import rl "vendor:raylib"
 
 main :: proc() {
-	rl.InitWindow(1280, 720, "SNEK!")
+	rl.InitWindow(1280, 720, "!")
 	player_pos := rl.Vector2{640, 320}
 	player_vel: rl.Vector2
 	player_grounded: bool
+	player_run_texture := rl.LoadTexture("cat_run.png")
 
 	for !rl.WindowShouldClose() {
 		rl.BeginDrawing()
