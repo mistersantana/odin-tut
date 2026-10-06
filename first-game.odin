@@ -7,6 +7,7 @@ main :: proc() {
 	player_pos := rl.Vector2{640, 320}
 	player_vel: rl.Vector2
 	player_grounded: bool
+	player_flip: bool
 	player_run_texture := rl.LoadTexture("cat_run.png")
 	player_run_num_frames := 4
 	player_run_frame_timer: f32
@@ -19,8 +20,10 @@ main :: proc() {
 
 		if rl.IsKeyDown(.LEFT) {
 			player_vel.x = -400
+			player_flip = true
 		} else if rl.IsKeyDown(.RIGHT) {
 			player_vel.x = 400
+			player_flip = false
 		} else {
 			player_vel.x = 0
 		}
@@ -44,9 +47,9 @@ main :: proc() {
 
 		player_run_frame_timer += rl.GetFrameTime()
 
-		if player_run_frame_timer > player_run_frame_length {
+		for player_run_frame_timer > player_run_frame_length {
 			player_run_current_frame += 1
-			player_run_frame_timer = 0
+			player_run_frame_timer -= player_run_frame_length
 
 			if player_run_current_frame == player_run_num_frames {
 				player_run_current_frame = 0
@@ -58,6 +61,10 @@ main :: proc() {
 			y      = 0,
 			width  = player_run_width / f32(player_run_num_frames),
 			height = player_run_height,
+		}
+
+		if player_flip {
+			draw_player_source.width = -draw_player_source.width
 		}
 
 		draw_player_dest := rl.Rectangle {
