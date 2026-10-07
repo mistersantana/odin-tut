@@ -133,11 +133,6 @@ main :: proc() {
 			}
 		}
 
-		// if player_pos.y > f32(rl.GetScreenHeight()) - 64 {
-		// 	player_pos.y = f32(rl.GetScreenHeight()) - 64
-		// 	player_grounded = true
-		// }
-
 		update_animation(&current_anim)
 
 		screen_height := f32(rl.GetScreenHeight())
